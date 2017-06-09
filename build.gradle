@@ -1,0 +1,59 @@
+apply from: "config.gradle"
+
+group rootProject.ext.app.group
+version rootProject.ext.app.version
+
+buildscript {
+    ext {
+        springVersion = "4.3.8.RELEASE"
+        springBootVersion = "1.5.3.RELEASE"
+    }
+    repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/plugins-release" }
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.4.18"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+        classpath "gradle.plugin.com.google.protobuf:protobuf-gradle-plugin:0.8.1"
+    }
+}
+
+subprojects {
+    apply plugin: 'idea'
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    configurations {
+        all*.exclude group: 'commons-logging', module: 'commons-logging'
+        all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+
+        provided
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://repo.spring.io/release" }
+        maven { url "https://repo.spring.io/libs-release" }
+    }
+
+    // https://docs.gradle.org/current/userguide/artifact_dependencies_tutorial.html
+    // https://docs.gradle.org/current/userguide/dependency_management.html
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:$springBootVersion"
+        }
+    }
+
+    dependencies {
+        compile rootProject.ext.dependencies['lombok'],
+                rootProject.ext.dependencies['spring-core'],
+                rootProject.ext.dependencies['spring-context'],
+                rootProject.ext.dependencies['spring-beans']
+    }
+}

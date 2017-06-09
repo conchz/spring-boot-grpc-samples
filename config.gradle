@@ -1,0 +1,37 @@
+ext {
+    jacksonVersion = "2.8.8"
+    grpcVersion = "1.4.0"
+    lombokVersion = "1.16.16"
+    guavaVersion = "19.0"
+
+    app = [
+            group: "org.lavenderx",
+            version: "1.0-SNAPSHOT"
+    ]
+
+    dependencies = [
+            "spring-core": "org.springframework:spring-core:$springVersion",
+            "spring-beans": "org.springframework:spring-beans:$springVersion",
+            "spring-context": "org.springframework:spring-context:$springVersion",
+
+            "spring-boot-autoconfigure": "org.springframework.boot:spring-boot-autoconfigure",
+            "spring-boot-starter-web": "org.springframework.boot:spring-boot-starter-web",
+            "spring-boot-starter-jetty": "org.springframework.boot:spring-boot-starter-jetty",
+            "spring-boot-starter-actuator": "org.springframework.boot:spring-boot-starter-actuator",
+
+            "grpc-context": "io.grpc:grpc-context:$grpcVersion",
+            "grpc-stub": "io.grpc:grpc-stub:$grpcVersion",
+            "grpc-protobuf": "io.grpc:grpc-protobuf:$grpcVersion",
+            "grpc-netty": "io.grpc:grpc-netty:$grpcVersion",
+
+            "jackson-databind": "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion",
+            "jackson-annotations": "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion",
+            "jackson-datatype-jsr310": "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion",
+            "lombok": "org.projectlombok:lombok:$lombokVersion",
+            "guava": "com.google.guava:guava:$guavaVersion",
+
+            "junit": "junit:junit:4.12",
+            "spring-test": "org.springframework:spring-test:$springVersion",
+            "spring-boot-test": "org.springframework.boot:spring-boot-test"
+    ]
+}

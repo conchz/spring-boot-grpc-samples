@@ -1,0 +1,11 @@
+dependencies {
+    compile rootProject.ext.dependencies['grpc-context'],
+            rootProject.ext.dependencies['grpc-stub'],
+            rootProject.ext.dependencies['grpc-protobuf'],
+            rootProject.ext.dependencies['grpc-netty'],
+            rootProject.ext.dependencies['spring-boot-autoconfigure']
+
+    compileOnly "org.springframework.boot:spring-boot-configuration-processor"
+}
+
+compileJava.dependsOn(processResources)

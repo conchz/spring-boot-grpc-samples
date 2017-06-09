@@ -1,0 +1,53 @@
+apply plugin: 'com.google.protobuf'
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+    compile project(':commons'),
+            rootProject.ext.dependencies['spring-boot-starter-actuator']
+
+    testCompile rootProject.ext.dependencies['spring-test'],
+            rootProject.ext.dependencies['spring-boot-test']
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/protoGen'
+        }
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.3.0'
+    }
+
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:$grpcVersion"
+        }
+    }
+
+    generateProtoTasks {
+        ofSourceSet('main').each { task ->
+            task.builtins {
+                java {
+                    outputSubDir = 'protoGen'
+                }
+            }
+            task.plugins {
+                grpc {
+                    outputSubDir = 'protoGen'
+                }
+            }
+        }
+    }
+    generatedFilesBaseDir = "$projectDir/src/"
+}
+
+task cleanProtoGen {
+    doFirst {
+        delete("$projectDir/src/main/protoGen")
+    }
+}
+clean.dependsOn cleanProtoGen
